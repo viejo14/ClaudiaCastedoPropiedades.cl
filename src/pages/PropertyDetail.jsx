@@ -24,16 +24,24 @@ function PropertyDetail() {
         setProperty(data);
       } catch (err) {
         console.error('Error al cargar propiedad:', err);
+<<<<<<< HEAD
         setError('No se pudo cargar la propiedad. Por favor, intenta nuevamente.');
         // Redirigir a 404 después de 2 segundos si hay un error
         setTimeout(() => {
           navigate('/404', { replace: true });
         }, 2000);
+=======
+        setError('No se pudo cargar la propiedad.');
+        setTimeout(() => navigate('/404', { replace: true }), 2000);
+>>>>>>> 415ca4e (commit)
       } finally {
         setLoading(false);
       }
     };
+<<<<<<< HEAD
 
+=======
+>>>>>>> 415ca4e (commit)
     loadProperty();
   }, [id, navigate]);
 
@@ -54,18 +62,26 @@ function PropertyDetail() {
   };
 
   const getCurrentImage = () => {
+<<<<<<< HEAD
     if (!property?.images || property.images.length === 0) {
       return null;
     }
+=======
+    if (!property?.images || property.images.length === 0) return null;
+>>>>>>> 415ca4e (commit)
     const image = property.images[currentImageIndex];
     return image?.path || image?.url || null;
   };
 
+<<<<<<< HEAD
   // Funciones para el lightbox
+=======
+>>>>>>> 415ca4e (commit)
   const openLightbox = (index) => {
     setLightboxImageIndex(index);
     setIsLightboxOpen(true);
   };
+<<<<<<< HEAD
 
   const closeLightbox = () => {
     setIsLightboxOpen(false);
@@ -110,10 +126,19 @@ function PropertyDetail() {
       </main>
     );
   }
+=======
+  const closeLightbox = () => setIsLightboxOpen(false);
+  const nextLightboxImage = () => setLightboxImageIndex((prev) => (prev === property.images.length - 1 ? 0 : prev + 1));
+  const prevLightboxImage = () => setLightboxImageIndex((prev) => (prev === 0 ? property.images.length - 1 : prev - 1));
+
+  if (loading) return <main className="min-h-screen pt-24 flex items-center justify-center">Cargando...</main>;
+  if (error || !property) return <main className="min-h-screen pt-24 text-center">{error || 'Propiedad no encontrada'}</main>;
+>>>>>>> 415ca4e (commit)
 
   return (
     <main className="min-h-screen bg-white/90 pt-24">
       <section className="max-w-7xl mx-auto px-4 py-10">
+<<<<<<< HEAD
         {/* Botón volver */}
         <button
           onClick={() => navigate('/propiedades')}
@@ -292,10 +317,82 @@ function PropertyDetail() {
                       <div className="text-sm text-gray-600">Superficie construida</div>
                     </div>
                   </div>
+=======
+        <button onClick={() => navigate('/propiedades')} className="flex items-center gap-2 text-secondary mb-6 font-semibold">
+          <FaArrowLeft /> Volver a propiedades
+        </button>
+
+        {/* NUEVO LAYOUT: imagen grande izquierda + miniaturas en grid a la derecha */}
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-10">
+          {/* Imagen principal */}
+          <div className="lg:col-span-2 relative bg-black rounded-xl overflow-hidden" style={{ height: '500px' }}>
+            {(!property.images || property.images.length === 0 || imageError) ? (
+              <div className="w-full h-full bg-gray-200 flex items-center justify-center">
+                <FaHome className="text-gray-400 text-7xl" />
+              </div>
+            ) : (
+              <>
+                <img
+                  src={getCurrentImage()}
+                  alt={property.propertyTitle}
+                  className="w-full h-full object-cover cursor-pointer"
+                  onClick={() => openLightbox(currentImageIndex)}
+                  onError={() => setImageError(true)}
+                />
+
+                {property.images.length > 1 && (
+                  <>
+                    <button onClick={prevImage} className="absolute left-4 top-1/2 -translate-y-1/2 bg-white/60 p-3 rounded-full shadow">
+                      <FaChevronLeft className="text-secondary text-xl" />
+                    </button>
+                    <button onClick={nextImage} className="absolute right-4 top-1/2 -translate-y-1/2 bg-white/60 p-3 rounded-full shadow">
+                      <FaChevronRight className="text-secondary text-xl" />
+                    </button>
+                  </>
+                )}
+              </>
+            )}
+          </div>
+
+          {/* Miniaturas en GRID (como la imagen) */}
+          {property.images && property.images.length > 1 && !imageError && (
+            <div className="grid grid-cols-2 gap-4 h-[500px] overflow-hidden">
+              {property.images.slice(0, 4).map((img, index) => (
+                <button key={index} onClick={() => setCurrentImageIndex(index)} className="rounded-xl overflow-hidden border">
+                  <img
+                    src={img.path || img.url}
+                    alt={`Mini ${index}`}
+                    className="w-full h-full object-cover"
+                  />
+                </button>
+              ))}
+            </div>
+          )}
+        </div>
+
+        {/* Info */}
+        <h1 className="text-3xl font-bold mb-4">{property.propertyTitle}</h1>
+        <p className="text-gray-600 mb-6">{property.address?.city?.name}, {property.address?.state?.name}</p>
+
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+          <div className="lg:col-span-2 space-y-6">
+            <div className="bg-white p-6 rounded-xl shadow">
+              <h2 className="text-xl font-bold mb-4">Características</h2>
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                {property.characteristics?.bedrooms && (
+                  <div className="flex gap-2 items-center"><FaBed /><span>{property.characteristics.bedrooms} Dormitorios</span></div>
+                )}
+                {property.characteristics?.bathrooms && (
+                  <div className="flex gap-2 items-center"><FaBath /><span>{property.characteristics.bathrooms} Baños</span></div>
+                )}
+                {property.characteristics?.surface && (
+                  <div className="flex gap-2 items-center"><FaRulerCombined /><span>{property.characteristics.surface} m²</span></div>
+>>>>>>> 415ca4e (commit)
                 )}
               </div>
             </div>
 
+<<<<<<< HEAD
             {/* Descripción */}
             <div className="bg-white rounded-xl shadow-md p-6">
               <h2 className="text-xl font-bold text-secondary/90 mb-4">Descripción</h2>
@@ -335,6 +432,21 @@ function PropertyDetail() {
       </section>
 
       {/* Lightbox para ampliar imágenes */}
+=======
+            <div className="bg-white p-6 rounded-xl shadow">
+              <h2 className="text-xl font-bold mb-4">Descripción</h2>
+              <div className="text-gray-700 whitespace-pre-line" dangerouslySetInnerHTML={{ __html: property.propertyDescription }} />
+            </div>
+          </div>
+
+          <aside className="bg-secondary/10 p-6 rounded-xl h-fit sticky top-24">
+            <h2 className="text-xl font-bold mb-4">¿Te interesa esta propiedad?</h2>
+            <a href="/contacto" className="block bg-primary text-white text-center py-3 rounded-md font-semibold mb-3">Contactar</a>
+          </aside>
+        </div>
+      </section>
+
+>>>>>>> 415ca4e (commit)
       <ImageLightbox
         isOpen={isLightboxOpen}
         onClose={closeLightbox}

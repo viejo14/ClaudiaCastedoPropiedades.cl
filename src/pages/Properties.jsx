@@ -186,13 +186,18 @@ function Properties() {
       {/* Hero Section estilo Servicios */}
       <section className="relative bg-gradient-to-r from-black to-gray-800 text-white py-24 mt-0">
         <div className="absolute inset-0 bg-black/40"></div>
+<<<<<<< HEAD
         <div className="max-w-6xl mx-auto px-4 relative z-10">
+=======
+        {/* <div className="max-w-6xl mx-auto px-4 relative z-10">
+>>>>>>> 415ca4e (commit)
           <div className="max-w-2xl">
             <h1 className="text-5xl font-bold mb-6 mt-10">Propiedades</h1>
             <p className="text-xl text-gray-200 mb-8">
               Explora nuestro catálogo de propiedades y encuentra el hogar ideal para ti. Filtra por ubicación, tipo y características para ver las mejores opciones disponibles.
             </p>
           </div>
+<<<<<<< HEAD
         </div>
       </section>
       <section className="max-w-8xl mx-auto px-4 py-10">
@@ -286,6 +291,107 @@ function Properties() {
         </div>
       </section>
     </main>
+=======
+        </div> */}
+      </section>
+      <section className="max-w-7xl mx-auto px-4 py-14">
+
+      {/*Encabezado y botones*/}
+      <div className="flex flex-col md:flex-row items-center justify-between mb-10 gap-4">
+
+        {/*titutlo*/}
+        <div>
+          <h2 className="text-4xl font-bold text-gray-900">Descubre nuevas propiedades</h2>
+          <p className="text-gray-500 mt-1">
+            Explora nuestro catálogo y encuentra el hogar ideal para ti
+          </p>
+        </div>
+
+        {/*botnoes*/}
+        <div className="flex gap-3 mt-2 md:mt-0">
+          <button className="px-6 py-2 rounded-full bg-primary text-white font-semibold">Casa</button>
+          <button className="px-6 py-2 rounded-full border font-semibold">Comercial</button>
+          <button className="px-6 py-2 rounded-full border font-semibold">Oficinas</button>
+          <button className="px-6 py-2 rounded-full border font-semibold">Departamentos</button>
+        </div>
+
+
+      </div>
+
+
+      {/* FILTROS HORIZONTALES */}
+      <div className="grid grid-cols-2 md:grid-cols-6 gap-4 mb-6">
+        <select className="border rounded-md px-3 py-2" value={filters.typeOfOperation} onChange={(e) => handleFilterChange('typeOfOperation', e.target.value)}>
+          <option value="">Tipo de operación</option>
+          {getUniqueOperations().map(op => (<option key={op} value={op}>{op}</option>))}
+        </select>
+
+        <select className="border rounded-md px-3 py-2" value={filters.typeOfProperty} onChange={(e) => handleFilterChange('typeOfProperty', e.target.value)}>
+          <option value="">Tipo de inmueble</option>
+          {getUniquePropertyTypes().map(type => (<option key={type} value={type}>{type}</option>))}
+        </select>
+
+        <select className="border rounded-md px-3 py-2" value={filters.stateId} onChange={(e) => handleFilterChange('stateId', e.target.value)}>
+          <option value="">Región</option>
+          {getUniqueRegions().map(region => (<option key={region.id} value={region.id}>{region.name}</option>))}
+        </select>
+
+        <select className="border rounded-md px-3 py-2" value={filters.cityId} onChange={(e) => handleFilterChange('cityId', e.target.value)}>
+          <option value="">Comuna</option>
+          {getUniqueCities().map(city => (<option key={city.id} value={city.id}>{city.name}</option>))}
+        </select>
+
+        <select className="border rounded-md px-3 py-2" value={filters.bedrooms} onChange={(e) => handleFilterChange('bedrooms', e.target.value)}>
+          <option value="">Dormitorios</option>
+          <option value="1">1</option><option value="2">2</option>
+          <option value="3">3</option><option value="4">4</option>
+        </select>
+
+        <select className="border rounded-md px-3 py-2" value={filters.bathrooms} onChange={(e) => handleFilterChange('bathrooms', e.target.value)}>
+          <option value="">Baños</option>
+          <option value="1">1+</option><option value="2">2+</option>
+          <option value="3">3+</option><option value="4">4+</option>
+        </select>
+      </div>
+
+      {/* Botones de buscar y limpiar */}
+      <div className="flex justify-center gap-4 mb-12">
+        <button onClick={clearFilters} className="px-6 py-2 rounded-full bg-gray-200 font-semibold">
+          Limpiar
+        </button>
+        <button onClick={applyFilters} className="px-6 py-2 rounded-full bg-primary text-white font-semibold hover:bg-primary/80 transition">
+          Buscar
+        </button>
+      </div>
+
+      {/* LISTADO DE PROPIEDADES */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+        {loading ? (
+          <div className="col-span-3 text-center text-gray-600 py-10">Cargando propiedades...</div>
+        ) : filteredProperties.length === 0 ? (
+          <div className="col-span-3 text-center text-gray-600 py-10">No se encontraron propiedades.</div>
+        ) : (
+          <PropertiesList properties={filteredProperties} />
+        )}
+      </div>
+
+      {/* PAGINACIÓN */}
+      {filteredProperties.length > 0 && (
+        <Pagination
+          currentPage={currentPage}
+          totalPages={totalPages}
+          totalItems={totalProperties}
+          itemsPerPage={propertiesPerPage}
+          onPageChange={handlePageChange}
+          onPreviousPage={handlePreviousPage}
+          onNextPage={handleNextPage}
+        />
+      )}
+
+    </section>
+
+        </main>
+>>>>>>> 415ca4e (commit)
   );
 }
 

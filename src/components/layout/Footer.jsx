@@ -9,7 +9,11 @@ const Footer = () => {
       <div className="max-w-6xl mx-auto px-4 py-10 grid grid-cols-1 md:grid-cols-3 gap-8 items-center">
         {/* Enlaces rápidos + Logo */}
         <div className="flex flex-col gap-2 text-sm md:text-left text-center items-center md:items-start">
+<<<<<<< HEAD
           <img src="/img/img-header/logo.png" alt="Logo" className="bg-white w-26 h-26 object-contain rounded-xl p-0 shadow-lg mb-2" />
+=======
+          <img src="/img/img-header/logo1.jpg" alt="Logo" className="bg-white w-26 h-26 object-contain rounded-xl p-0 shadow-lg mb-2" />
+>>>>>>> 415ca4e (commit)
           <span className="font-bold mb-2">Enlaces rápidos</span>
           <Link to="/" className="hover:underline">Inicio</Link>
           <Link to="/propiedades" className="hover:underline">Propiedades</Link>

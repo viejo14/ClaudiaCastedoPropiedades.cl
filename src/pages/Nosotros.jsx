@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { FaUserTie, FaBullseye, FaChartBar, FaHome, FaHandshake, FaUsers, FaAward, FaHeart } from 'react-icons/fa';
@@ -14,10 +15,228 @@ const Nosotros = () => {
             <h1 className="text-5xl font-bold mb-6 mt-10">Nosotros</h1>
             <p className="text-xl text-gray-200 mb-8">
               Conoce nuestro equipo y nuestra misión. En IG Propiedades trabajamos con transparencia, compromiso y excelencia para ayudarte a cumplir tus sueños inmobiliarios.
+=======
+import React from "react";
+import { Link } from "react-router-dom";
+import {
+  FaShieldAlt,
+  FaUserTie,
+  FaBullseye,
+  FaChartBar,
+  FaHandshake,
+  FaUsers,
+  FaHeart,
+  FaAward,
+  FaHome,
+} from "react-icons/fa";
+
+const Nosotros = () => {
+  return (
+    <main className="min-h-screen bg-white/90 pt-30 pb-40">
+
+      {/*titulo*/}
+      <section className="max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+
+        {/*texto*/}
+        <div>
+          <h2 className="text-4xl font-bold text-black leading-tight mb-4">
+            Más que una Corredora <br /> Tu Aliado Inmobiliario
+          </h2>
+
+          <p className="text-black/70 leading-relaxed mb-10">
+            En IG Propiedades acompañamos a nuestros clientes en cada etapa
+            de sus proyectos inmobiliarios. Brindamos asesoría personalizada,
+            gestión transparente y un compromiso absoluto con sus objetivos.
+            Nuestra experiencia, cercanía y excelencia nos permiten entregar
+            soluciones integrales en compra, venta, arriendo y administración
+            de propiedades.
+          </p>
+
+          <div className="space-y-8 mb-10">
+
+            {/*seguridad*/}
+            <div className="flex gap-4">
+              <div className="bg-white p-4 rounded-full shadow-sm h-fit">
+                <FaShieldAlt className="text-primary text-2xl" />
+              </div>
+              <div>
+                <h3 className="font-bold text-xl text-black">Seguridad</h3>
+                <p className="text-black/70">
+                  Gestión confiable, procesos claros y asesoría experta para
+                  proteger tus decisiones inmobiliarias.
+                </p>
+              </div>
+            </div>
+
+            {/*por qué*/}
+            <div className="flex gap-4">
+              <div className="bg-white p-4 rounded-full shadow-sm h-fit">
+                <FaUserTie className="text-primary text-2xl" />
+              </div>
+              <div>
+                <h3 className="font-bold text-xl text-black">Por qué elegirnos</h3>
+                <p className="text-black/70">
+                  Somos una empresa familiar fundada por mujeres, con más de
+                  15 años de experiencia. Nos caracteriza el trato humano,
+                  la transparencia y el compromiso real con cada cliente.
+                </p>
+              </div>
+            </div>
+
+            {/*misión*/}
+            <div className="flex gap-4">
+              <div className="bg-white p-4 rounded-full shadow-sm h-fit">
+                <FaBullseye className="text-primary text-2xl" />
+              </div>
+              <div>
+                <h3 className="font-bold text-xl text-black">Misión</h3>
+                <p className="text-black/70">
+                  Entregar un servicio inmobiliario integral, cercano y
+                  transparente, acompañando cada decisión con confianza y claridad.
+                </p>
+              </div>
+            </div>
+
+            {/*visión*/}
+            <div className="flex gap-4">
+              <div className="bg-white p-4 rounded-full shadow-sm h-fit">
+                <FaChartBar className="text-primary text-2xl" />
+              </div>
+              <div>
+                <h3 className="font-bold text-xl text-black">Visión</h3>
+                <p className="text-black/70">
+                  Ser líderes en el rubro inmobiliario, destacando por nuestra
+                  cercanía, compromiso y aporte a la comunidad.
+                </p>
+              </div>
+            </div>
+
+          </div>
+
+          {/*botón*/}
+          <Link
+            to="/contacto"
+            className="bg-secondary text-white px-6 py-3 rounded-xl font-semibold shadow-lg hover:bg-black/80 transition flex items-center gap-2 w-fit"
+          >
+            Contactar <span>➜</span>
+          </Link>
+        </div>
+
+        {/* imagen */}
+        <div className="flex justify-center">
+          <img
+            src="/img/img_nosotros.png"
+            alt="Equipo de trabajo"
+            className="rounded-2xl shadow-xl w-full h-[520px] object-cover"
+          />
+        </div>
+
+      </section>
+
+      {/*métricas*/}
+      <section className="max-w-5xl mx-auto mt-20 text-center grid grid-cols-2 md:grid-cols-4 gap-10">
+        <div>
+          <p className="text-4xl font-bold text-black">400</p>
+          <p className="text-black/70">Ventas realizadas</p>
+        </div>
+        <div>
+          <p className="text-4xl font-bold text-black">200+</p>
+          <p className="text-black/70">Arriendos realizados</p>
+        </div>
+        <div>
+          <p className="text-4xl font-bold text-black">1Mil+</p>
+          <p className="text-black/70">Cartera de propiedades</p>
+        </div>
+        <div>
+          <p className="text-4xl font-bold text-black">98%</p>
+          <p className="text-black/70">Clientes satisfechos</p>
+        </div>
+      </section>
+
+      {/*equipo*/}
+      <section className="max-w-7xl mx-auto mt-32 px-6">
+        <h2 className="text-4xl font-bold text-center mb-16">
+          Nuestro Equipo
+        </h2>
+
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
+
+          {/*priemra*/}
+          <div className="bg-white rounded-2xl shadow-lg p-10">
+            <div className="flex flex-col md:flex-row gap-6 items-start">
+              <div className="w-40 h-40 bg-black/10 rounded-full flex items-center justify-center">
+                <FaUserTie className="text-black text-5xl" />
+              </div>
+              <div>
+                <h3 className="text-2xl font-bold text-black mb-4">
+                  Ingrid González O.
+                </h3>
+                <p className="text-black/70 leading-relaxed">
+                  Mujer apasionada, perseverante y comprometida con más de
+                  28 años en liderazgo y administración. Fundadora de IG
+                  Propiedades y pilar fundamental del acompañamiento integral
+                  que entregamos a nuestros clientes.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          {/*segunda*/}
+          <div className="bg-white rounded-2xl shadow-lg p-10">
+            <div className="flex flex-col md:flex-row gap-6 items-start">
+              <div className="w-40 h-40 bg-black/10 rounded-full flex items-center justify-center">
+                <FaUserTie className="text-black text-5xl" />
+              </div>
+              <div>
+                <h3 className="text-2xl font-bold text-black mb-4">
+                  Melissa González O.
+                </h3>
+                <p className="text-black/70 leading-relaxed">
+                  Mujer dinámica, cercana y con visión estratégica. Con más
+                  de 17 años de trayectoria en el área comercial, lidera los
+                  procesos de gestión, asesoría y corretaje dentro de IG Propiedades.
+                </p>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      {/*valores¿*/}
+      <section className="max-w-7xl mx-auto mt-32 px-6">
+        <h2 className="text-4xl font-bold text-center mb-16">
+          Nuestros Valores
+        </h2>
+
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
+          <div className="bg-white rounded-2xl p-8 text-center shadow-lg">
+            <FaHandshake className="text-3xl text-primary mx-auto mb-4" />
+            <h3 className="text-xl font-bold mb-2">Compromiso</h3>
+            <p className="text-black/70">
+              Atención personalizada y dedicación total en cada proceso.
+            </p>
+          </div>
+
+          <div className="bg-white rounded-2xl p-8 text-center shadow-lg">
+            <FaUsers className="text-3xl text-primary mx-auto mb-4" />
+            <h3 className="text-xl font-bold mb-2">Trabajo en equipo</h3>
+            <p className="text-black/70">
+              Colaboración constante para alcanzar los mejores resultados.
+            </p>
+          </div>
+
+          <div className="bg-white rounded-2xl p-8 text-center shadow-lg">
+            <FaHeart className="text-3xl text-primary mx-auto mb-4" />
+            <h3 className="text-xl font-bold mb-2">Empatía</h3>
+            <p className="text-black/70">
+              Comprendemos tus necesidades para brindarte soluciones reales.
+>>>>>>> 415ca4e (commit)
             </p>
           </div>
         </div>
       </section>
+<<<<<<< HEAD
       <div className="max-w-6xl w-full mx-auto px-4 mt-24">
         {/* Sección Principal */}
         <section className="flex flex-col lg:flex-row gap-12 items-center mb-20">
@@ -244,8 +463,45 @@ const Nosotros = () => {
           </div>
         </section>
       </div>
+=======
+
+      {/*logros*/}
+      <section className="max-w-7xl mx-auto mt-32 px-6">
+        <h2 className="text-4xl font-bold text-center mb-16">
+          Nuestros Logros
+        </h2>
+
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-10 text-center">
+          <div>
+            <FaHome className="text-3xl text-primary mx-auto mb-2" />
+            <p className="text-4xl font-bold text-black">250+</p>
+            <p className="text-black/70">Propiedades gestionadas</p>
+          </div>
+          <div>
+            <FaAward className="text-3xl text-primary mx-auto mb-2" />
+            <p className="text-4xl font-bold text-black">15+</p>
+            <p className="text-black/70">Años de experiencia</p>
+          </div>
+          <div>
+            <FaUsers className="text-3xl text-primary mx-auto mb-2" />
+            <p className="text-4xl font-bold text-black">98%</p>
+            <p className="text-black/70">Clientes satisfechos</p>
+          </div>
+          <div>
+            <FaChartBar className="text-3xl text-primary mx-auto mb-2" />
+            <p className="text-4xl font-bold text-black">50+</p>
+            <p className="text-black/70">Asesorías mensuales</p>
+          </div>
+        </div>
+      </section>
+
+>>>>>>> 415ca4e (commit)
     </main>
   );
 };
 
+<<<<<<< HEAD
 export default Nosotros;
+=======
+export default Nosotros;
+>>>>>>> 415ca4e (commit)
