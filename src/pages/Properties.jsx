@@ -9,13 +9,11 @@ function Properties() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  // Estados para paginación
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
   const [totalProperties, setTotalProperties] = useState(0);
   const [propertiesPerPage] = useState(6);
 
-  // Estados para los filtros
   const [filters, setFilters] = useState({
     typeOfOperation: '',
     typeOfProperty: '',
@@ -46,33 +44,24 @@ function Properties() {
     };
 
     loadProperties();
-    // Scroll al inicio cuando cambia la página
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }, [currentPage, propertiesPerPage]);
 
-  // Función para manejar cambios en los filtros
   const handleFilterChange = (filterName, value) => {
     setFilters(prev => {
-      const newFilters = {
-        ...prev,
-        [filterName]: value
-      };
-
-      // Si se cambia la región, limpiar el filtro de ciudad
+      const newFilters = { ...prev, [filterName]: value };
       if (filterName === 'stateId') {
         newFilters.cityId = '';
       }
-
       return newFilters;
     });
   };
 
-  // Función para aplicar los filtros
   const applyFilters = async () => {
     try {
       setLoading(true);
       setError(null);
-      setCurrentPage(1); // Resetear a la primera página
+      setCurrentPage(1);
 
       const response = await fetchProperties(filters, 1, propertiesPerPage);
       setFilteredProperties(response.properties);
@@ -86,26 +75,20 @@ function Properties() {
     }
   };
 
-  // Funciones para navegación de páginas
-  const handlePageChange = (newPage) => {
+  const handlePageChange = newPage => {
     if (newPage >= 1 && newPage <= totalPages) {
       setCurrentPage(newPage);
     }
   };
 
   const handlePreviousPage = () => {
-    if (currentPage > 1) {
-      setCurrentPage(currentPage - 1);
-    }
+    if (currentPage > 1) setCurrentPage(currentPage - 1);
   };
 
   const handleNextPage = () => {
-    if (currentPage < totalPages) {
-      setCurrentPage(currentPage + 1);
-    }
+    if (currentPage < totalPages) setCurrentPage(currentPage + 1);
   };
 
-  // Función para limpiar los filtros
   const clearFilters = async () => {
     setFilters({
       typeOfOperation: '',
@@ -136,7 +119,6 @@ function Properties() {
     }
   };
 
-  // Obtener valores únicos para los selects
   const getUniqueOperations = () => {
     const operations = properties.map(p => p.typeOfOperationId).filter(Boolean);
     return [...new Set(operations)];
@@ -160,7 +142,6 @@ function Properties() {
   const getUniqueCities = () => {
     const citiesMap = new Map();
 
-    // Si hay una región seleccionada, filtrar ciudades solo de esa región
     if (filters.stateId) {
       properties
         .filter(p => p.address?.state?.id == filters.stateId)
@@ -170,7 +151,6 @@ function Properties() {
           }
         });
     } else {
-      // Si no hay región seleccionada, mostrar todas las ciudades
       properties.forEach(p => {
         if (p.address?.city?.id && p.address?.city?.name) {
           citiesMap.set(p.address.city.id, p.address.city.name);
@@ -182,216 +162,97 @@ function Properties() {
   };
 
   return (
-    <main className="min-h-screen bg-white/90">
-      {/* Hero Section estilo Servicios */}
-      <section className="relative bg-gradient-to-r from-black to-gray-800 text-white py-24 mt-0">
-        <div className="absolute inset-0 bg-black/40"></div>
-<<<<<<< HEAD
-        <div className="max-w-6xl mx-auto px-4 relative z-10">
-=======
-        {/* <div className="max-w-6xl mx-auto px-4 relative z-10">
->>>>>>> 415ca4e (commit)
-          <div className="max-w-2xl">
-            <h1 className="text-5xl font-bold mb-6 mt-10">Propiedades</h1>
-            <p className="text-xl text-gray-200 mb-8">
-              Explora nuestro catálogo de propiedades y encuentra el hogar ideal para ti. Filtra por ubicación, tipo y características para ver las mejores opciones disponibles.
-            </p>
-          </div>
-<<<<<<< HEAD
-        </div>
-      </section>
-      <section className="max-w-8xl mx-auto px-4 py-10">
-        <h1 className="text-2xl md:text-3xl font-bold text-secondary mb-8">Encuentra Tu Hogar</h1>
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
-          {/* Filtros de búsqueda */}
-          <aside className="col-span-1 bg-white rounded-xl border border-gray-200 p-6 shadow-md h-fit mt-16">
-            <div className="flex flex-col gap-4">
-              <select className="border rounded-md px-3 py-2 w-full" value={filters.typeOfOperation} onChange={(e) => handleFilterChange('typeOfOperation', e.target.value)}>
-                <option value="">Tipo de operación</option>
-                {getUniqueOperations().map(op => (<option key={op} value={op}>{op}</option>))}
-              </select>
-              <select className="border rounded-md px-3 py-2 w-full" value={filters.typeOfProperty} onChange={(e) => handleFilterChange('typeOfProperty', e.target.value)}>
-                <option value="">Tipo de inmueble</option>
-                {getUniquePropertyTypes().map(type => (<option key={type} value={type}>{type}</option>))}
-              </select>
-              <select className="border rounded-md px-3 py-2 w-full" value={filters.stateId} onChange={(e) => handleFilterChange('stateId', e.target.value)}>
-                <option value="">Región</option>
-                {getUniqueRegions().map(region => (<option key={region.id} value={region.id}>{region.name}</option>))}
-              </select>
-              <select className="border rounded-md px-3 py-2 w-full" value={filters.cityId} onChange={(e) => handleFilterChange('cityId', e.target.value)}>
-                <option value="">Comuna</option>
-                {getUniqueCities().map(city => (<option key={city.id} value={city.id}>{city.name}</option>))}
-              </select>
-              <select className="border rounded-md px-3 py-2 w-full" value={filters.bedrooms} onChange={(e) => handleFilterChange('bedrooms', e.target.value)}>
-                <option value="">Dormitorios</option>
-                <option value="1">1 dormitorio</option>
-                <option value="2">2 dormitorios</option>
-                <option value="3">3 dormitorios</option>
-                <option value="4">4 dormitorios</option>
-                <option value="5">5 dormitorios</option>
-              </select>
-              <select className="border rounded-md px-3 py-2 w-full" value={filters.bathrooms} onChange={(e) => handleFilterChange('bathrooms', e.target.value)}>
-                <option value="">Baños</option>
-                <option value="1">1 o más baños</option>
-                <option value="2">2 o más baños</option>
-                <option value="3">3 o más baños</option>
-                <option value="4">4 o más baños</option>
-              </select>
-              <input type="number" className="border rounded-md px-3 py-2 w-full" placeholder="Superficie útil mínima (m²)" value={filters.minSurface} onChange={(e) => handleFilterChange('minSurface', e.target.value)} />
-              <select className="border rounded-md px-3 py-2 w-full" value={filters.parkingSpaces} onChange={(e) => handleFilterChange('parkingSpaces', e.target.value)}>
-                <option value="">Estacionamiento</option>
-                <option value="1">1 estacionamiento</option>
-                <option value="2">2 estacionamientos</option>
-                <option value="3">3 estacionamientos</option>
-                <option value="4">4 estacionamientos</option>
-              </select>
-              <div className="flex gap-2 mt-2">
-                <button onClick={clearFilters} className="bg-gray-200 px-4 py-2 rounded font-semibold hover:bg-gray-300 transition w-1/2">Limpiar</button>
-                <button onClick={applyFilters} className="bg-secondary/90 text-white px-4 py-2 rounded font-semibold hover:bg-secondary/40 transition w-1/2">Buscar</button>
-              </div>
-            </div>
-          </aside>
-          {/* Listado de propiedades */}
-          <section className="col-span-1 md:col-span-3 bg-primary/10 rounded-xl p-6">
-            <h2 className="text-xl font-bold text-secondary mb-6">Todas las Propiedades</h2>
-            {loading ? (
-              <div className="flex justify-center items-center py-12">
-                <div className="text-secondary text-lg">Cargando propiedades...</div>
-              </div>
-            ) : error ? (
-              <div className="flex justify-center items-center py-12">
-                <div className="text-red-600 text-lg">{error}</div>
-              </div>
-            ) : (
-              <>
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                  {filteredProperties.length === 0 ? (
-                    <div className="col-span-3 text-secondary text-center py-12">
-                      No se encontraron propiedades con los filtros seleccionados.
-                    </div>
-                  ) : (
-                    <PropertiesList properties={filteredProperties} />
-                  )}
-                </div>
-                {/* Componente de paginación */}
-                {filteredProperties.length > 0 && (
-                  <Pagination
-                    currentPage={currentPage}
-                    totalPages={totalPages}
-                    totalItems={totalProperties}
-                    itemsPerPage={propertiesPerPage}
-                    onPageChange={handlePageChange}
-                    onPreviousPage={handlePreviousPage}
-                    onNextPage={handleNextPage}
-                  />
-                )}
-              </>
-            )}
-          </section>
-        </div>
-      </section>
-    </main>
-=======
-        </div> */}
-      </section>
-      <section className="max-w-7xl mx-auto px-4 py-14">
+    <main className="min-h-screen bg-white/90 pt-30 pb-40">
+      <div className="max-w-7xl mx-auto px-4">
 
-      {/*Encabezado y botones*/}
-      <div className="flex flex-col md:flex-row items-center justify-between mb-10 gap-4">
-
-        {/*titutlo*/}
-        <div>
-          <h2 className="text-4xl font-bold text-gray-900">Descubre nuevas propiedades</h2>
+        <div className="mt-10 mb-8">
+          <h2 className="text-3xl md:text-4xl font-bold text-gray-900">
+            Descubre nuevas propiedades
+          </h2>
           <p className="text-gray-500 mt-1">
-            Explora nuestro catálogo y encuentra el hogar ideal para ti
+            Encuentra opciones pensadas para ti y dale el próximo paso a tu futura inversión.
           </p>
         </div>
 
-        {/*botnoes*/}
-        <div className="flex gap-3 mt-2 md:mt-0">
-          <button className="px-6 py-2 rounded-full bg-primary text-white font-semibold">Casa</button>
-          <button className="px-6 py-2 rounded-full border font-semibold">Comercial</button>
-          <button className="px-6 py-2 rounded-full border font-semibold">Oficinas</button>
-          <button className="px-6 py-2 rounded-full border font-semibold">Departamentos</button>
+        {/*cate*/}
+        <div className="flex gap-3 mb-10 justify-end">
+          <button className="px-5 py-2 rounded-full bg-primary text-white font-semibold">Casa</button>
+          <button className="px-5 py-2 rounded-full border font-semibold">Comercial</button>
+          <button className="px-5 py-2 rounded-full border font-semibold">Oficinas</button>
+          <button className="px-5 py-2 rounded-full border font-semibold">Departamentos</button>
         </div>
 
+        {/*para el filro+*/}
+        <div className="grid grid-cols-2 md:grid-cols-6 gap-4 mb-6">
+          <select className="border rounded-md px-3 py-2" value={filters.typeOfOperation} onChange={(e) => handleFilterChange('typeOfOperation', e.target.value)}>
+            <option value="">Tipo de operación</option>
+            {getUniqueOperations().map(op => (<option key={op} value={op}>{op}</option>))}
+          </select>
 
-      </div>
+          <select className="border rounded-md px-3 py-2" value={filters.typeOfProperty} onChange={(e) => handleFilterChange('typeOfProperty', e.target.value)}>
+            <option value="">Tipo de inmueble</option>
+            {getUniquePropertyTypes().map(type => (<option key={type} value={type}>{type}</option>))}
+          </select>
 
+          <select className="border rounded-md px-3 py-2" value={filters.stateId} onChange={(e) => handleFilterChange('stateId', e.target.value)}>
+            <option value="">Región</option>
+            {getUniqueRegions().map(region => (<option key={region.id} value={region.id}>{region.name}</option>))}
+          </select>
 
-      {/* FILTROS HORIZONTALES */}
-      <div className="grid grid-cols-2 md:grid-cols-6 gap-4 mb-6">
-        <select className="border rounded-md px-3 py-2" value={filters.typeOfOperation} onChange={(e) => handleFilterChange('typeOfOperation', e.target.value)}>
-          <option value="">Tipo de operación</option>
-          {getUniqueOperations().map(op => (<option key={op} value={op}>{op}</option>))}
-        </select>
+          <select className="border rounded-md px-3 py-2" value={filters.cityId} onChange={(e) => handleFilterChange('cityId', e.target.value)}>
+            <option value="">Comuna</option>
+            {getUniqueCities().map(city => (<option key={city.id} value={city.id}>{city.name}</option>))}
+          </select>
 
-        <select className="border rounded-md px-3 py-2" value={filters.typeOfProperty} onChange={(e) => handleFilterChange('typeOfProperty', e.target.value)}>
-          <option value="">Tipo de inmueble</option>
-          {getUniquePropertyTypes().map(type => (<option key={type} value={type}>{type}</option>))}
-        </select>
+          <select className="border rounded-md px-3 py-2" value={filters.bedrooms} onChange={(e) => handleFilterChange('bedrooms', e.target.value)}>
+            <option value="">Dormitorios</option>
+            <option value="1">1</option><option value="2">2</option>
+            <option value="3">3</option><option value="4">4</option>
+          </select>
 
-        <select className="border rounded-md px-3 py-2" value={filters.stateId} onChange={(e) => handleFilterChange('stateId', e.target.value)}>
-          <option value="">Región</option>
-          {getUniqueRegions().map(region => (<option key={region.id} value={region.id}>{region.name}</option>))}
-        </select>
+          <select className="border rounded-md px-3 py-2" value={filters.bathrooms} onChange={(e) => handleFilterChange('bathrooms', e.target.value)}>
+            <option value="">Baños</option>
+            <option value="1">1+</option><option value="2">2+</option>
+            <option value="3">3+</option><option value="4">4+</option>
+          </select>
+        </div>
 
-        <select className="border rounded-md px-3 py-2" value={filters.cityId} onChange={(e) => handleFilterChange('cityId', e.target.value)}>
-          <option value="">Comuna</option>
-          {getUniqueCities().map(city => (<option key={city.id} value={city.id}>{city.name}</option>))}
-        </select>
+        {/*bontes*/}
+        <div className="flex justify-center gap-4 mb-12">
+          <button onClick={clearFilters} className="px-6 py-2 rounded-full bg-gray-200 font-semibold">
+            Limpiar
+          </button>
+          <button onClick={applyFilters} className="px-6 py-2 rounded-full bg-primary text-white font-semibold hover:bg-primary/80 transition">
+            Buscar
+          </button>
+        </div>
 
-        <select className="border rounded-md px-3 py-2" value={filters.bedrooms} onChange={(e) => handleFilterChange('bedrooms', e.target.value)}>
-          <option value="">Dormitorios</option>
-          <option value="1">1</option><option value="2">2</option>
-          <option value="3">3</option><option value="4">4</option>
-        </select>
+        {/* LISTADO */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+          {loading ? (
+            <div className="col-span-3 text-center text-gray-600 py-10">Cargando propiedades...</div>
+          ) : filteredProperties.length === 0 ? (
+            <div className="col-span-3 text-center text-gray-600 py-10">No se encontraron propiedades.</div>
+          ) : (
+            <PropertiesList properties={filteredProperties} />
+          )}
+        </div>
 
-        <select className="border rounded-md px-3 py-2" value={filters.bathrooms} onChange={(e) => handleFilterChange('bathrooms', e.target.value)}>
-          <option value="">Baños</option>
-          <option value="1">1+</option><option value="2">2+</option>
-          <option value="3">3+</option><option value="4">4+</option>
-        </select>
-      </div>
-
-      {/* Botones de buscar y limpiar */}
-      <div className="flex justify-center gap-4 mb-12">
-        <button onClick={clearFilters} className="px-6 py-2 rounded-full bg-gray-200 font-semibold">
-          Limpiar
-        </button>
-        <button onClick={applyFilters} className="px-6 py-2 rounded-full bg-primary text-white font-semibold hover:bg-primary/80 transition">
-          Buscar
-        </button>
-      </div>
-
-      {/* LISTADO DE PROPIEDADES */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-        {loading ? (
-          <div className="col-span-3 text-center text-gray-600 py-10">Cargando propiedades...</div>
-        ) : filteredProperties.length === 0 ? (
-          <div className="col-span-3 text-center text-gray-600 py-10">No se encontraron propiedades.</div>
-        ) : (
-          <PropertiesList properties={filteredProperties} />
+        {/* PAGINACIÓN */}
+        {filteredProperties.length > 0 && (
+          <Pagination
+            currentPage={currentPage}
+            totalPages={totalPages}
+            totalItems={totalProperties}
+            itemsPerPage={propertiesPerPage}
+            onPageChange={handlePageChange}
+            onPreviousPage={handlePreviousPage}
+            onNextPage={handleNextPage}
+          />
         )}
+
       </div>
-
-      {/* PAGINACIÓN */}
-      {filteredProperties.length > 0 && (
-        <Pagination
-          currentPage={currentPage}
-          totalPages={totalPages}
-          totalItems={totalProperties}
-          itemsPerPage={propertiesPerPage}
-          onPageChange={handlePageChange}
-          onPreviousPage={handlePreviousPage}
-          onNextPage={handleNextPage}
-        />
-      )}
-
-    </section>
-
-        </main>
->>>>>>> 415ca4e (commit)
+    </main>
   );
 }
 
