@@ -111,8 +111,9 @@ function Home() {
     <div className="w-full overflow-hidden">
       <Hero />
       {/* Secciones nuevas */}
-      <main className="bg-primary">
-        {/* Propiedades destacadas - Carrusel */}
+
+      <main className="min-h-screen bg-white/90">
+        {/*propiedades destacadas y carrusel*/}
         <section className="max-w-6xl mx-auto px-4 py-16">
           <h2 className="text-4xl font-bold text-gray-900 mb-8">Propiedades destacadas</h2>
           {loading ? (

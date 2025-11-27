@@ -5,8 +5,8 @@ function Contact() {
   const serviceId = import.meta.env.VITE_EMAILJS_SERVICE_ID;
   const adminTemplateId = import.meta.env.VITE_EMAILJS_ADMIN_TEMPLATE_ID;
   const publicKey = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
-  const adminToEmail =
-    import.meta.env.VITE_EMAILJS_ADMIN_TO_EMAIL;
+  const adminToEmail = import.meta.env.VITE_EMAILJS_ADMIN_TO_EMAIL;
+
 
   const [formData, setFormData] = useState({
     name: '',
@@ -31,7 +31,7 @@ function Contact() {
     if (!serviceId || !adminTemplateId || !publicKey) {
       setStatus({
         type: 'error',
-        message: 'Configuracion de EmailJS incompleta. Verifica las variables de entorno.',
+        message: 'Configuración de EmailJS incompleta. Verifica las variables de entorno.',
       });
       return;
     }
@@ -65,102 +65,103 @@ function Contact() {
   };
 
   return (
-    <div className="bg-primary relative w-full min-h-screen pt-24 pb-12">
-      {/* Elementos decorativos */}
-      <section id="contact" className="relative max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        {/* Contenido principal */}
-        <h3 className="text-2xl md:text-3xl font-bold text-secondary mb-6 md:mb-8">Contacto</h3>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 text-secondary">
-          <div className="space-y-4">
-            <p className="text-sm md:text-base">
-              <strong>Contacto:</strong> IG PROPIEDADES
-            </p>
-            <p className="text-sm md:text-base">
-              <strong>Empresa:</strong> IG PROPIEDADES SPA
-            </p>
-            <p className="text-sm md:text-base">
+    <div className="min-h-screen bg-white/90 pt-20 pb-40">
+      <section className="max-w-7xl mx-auto px-4 py-10 grid grid-cols-1 md:grid-cols-2 gap-10 items-center">
+
+        <div className="bg-white shadow-lg rounded-2xl p-8 border border-gray-200">
+          <h3 className="text-xl md:text-2xl font-bold text-gray-800 mb-2">Contáctanos</h3>
+          <p className="text-gray-600 mb-6 text-sm">
+            Tienes preguntas? Escríbenos
+          </p>
+
+          {/*info*/}
+          <div className="mb-6 text-gray-700 space-y-2 text-sm">
+            <p><strong>Contacto:</strong> IG PROPIEDADES</p>
+            <p><strong>Empresa:</strong> IG PROPIEDADES SPA</p>
+            <p>
               <strong>Teléfono:</strong>
-              <a href="tel:+56990179584" className="hover:underline ml-1">+56990179584</a>
+              <a href="tel:+56990179584" className="ml-1 hover:underline">+56990179584</a>
             </p>
-            <p className="text-sm md:text-base">
+            <p>
               <strong>Correo:</strong>
-              <a href="mailto:ingrid.gestioninmobiliaria@gmail.com" className="hover:underline ml-1 break-all">ingrid.gestioninmobiliaria@gmail.com</a>
+              <a href="mailto:ingrid.gestioninmobiliaria@gmail.com" className="ml-1 hover:underline break-all">
+                ingrid.gestioninmobiliaria@gmail.com
+              </a>
             </p>
           </div>
-          <div>
-            <form className="space-y-4" onSubmit={handleSubmit}>
-              <div>
-                <label className="sr-only" htmlFor="contact-name">
-                  Nombre
-                </label>
-                <input
-                  id="contact-name"
-                  name="name"
-                  aria-label="Nombre"
-                  required
-                  type="text"
-                  className="w-full px-4 py-3 bg-secondary/20 rounded-md text-secondary text-sm md:text-base focus:outline-none focus:ring-2 focus:ring-primary/50"
-                  placeholder="Tu nombre"
-                  value={formData.name}
-                  onChange={handleChange}
-                  disabled={isSending}
-                />
-              </div>
 
-              <div>
-                <label className="sr-only" htmlFor="contact-email">
-                  Email
-                </label>
-                <input
-                  id="contact-email"
-                  name="email"
-                  aria-label="Email"
-                  required
-                  type="email"
-                  className="w-full px-4 py-3 bg-secondary/20 rounded-md text-secondary text-sm md:text-base focus:outline-none focus:ring-2 focus:ring-primary/50"
-                  placeholder="Tu email"
-                  value={formData.email}
-                  onChange={handleChange}
-                  disabled={isSending}
-                />
-              </div>
+          {/* FORMULARIO */}
+          <form className="space-y-4" onSubmit={handleSubmit}>
+            <input
+              name="name"
+              required
+              type="text"
+              placeholder="Nombre"
+              className="w-full px-4 py-3 bg-gray-100 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-green-500"
+              value={formData.name}
+              onChange={handleChange}
+              disabled={isSending}
+            />
 
-              <div>
-                <label className="sr-only" htmlFor="contact-message">
-                  Mensaje
-                </label>
-                <textarea
-                  id="contact-message"
-                  name="message"
-                  aria-label="Mensaje"
-                  required
-                  className="w-full px-4 py-3 bg-secondary/20 rounded-md text-secondary text-sm md:text-base focus:outline-none focus:ring-2 focus:ring-primary/50 resize-none"
-                  rows="5"
-                  placeholder="Mensaje"
-                  value={formData.message}
-                  onChange={handleChange}
-                  disabled={isSending}
-                ></textarea>
-              </div>
+            <input
+              name="email"
+              required
+              type="email"
+              placeholder="Email"
+              className="w-full px-4 py-3 bg-gray-100 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-green-500"
+              value={formData.email}
+              onChange={handleChange}
+              disabled={isSending}
+            />
 
-              {status.message && (
-                <p className={`text-sm md:text-base ${status.type === 'success' ? 'text-green-600' : 'text-red-600'}`}>
-                  {status.message}
-                </p>
-              )}
+            <textarea
+              name="message"
+              required
+              rows="5"
+              placeholder="Mensaje"
+              className="w-full px-4 py-3 bg-gray-100 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-green-500 resize-none"
+              value={formData.message}
+              onChange={handleChange}
+              disabled={isSending}
+            ></textarea>
 
-              <div className="flex justify-start">
-                <button
-                  type="submit"
-                  className="bg-secondary px-6 py-3 rounded-md text-white w-full md:w-auto disabled:bg-primary/60 font-semibold hover:bg-primary/90 transition-colors text-sm md:text-base"
-                  disabled={isSending}
-                >
-                  {isSending ? 'Enviando...' : 'Enviar'}
-                </button>
-              </div>
-            </form>
+            {status.message && (
+              <p className={`text-sm ${status.type === 'success' ? 'text-green-600' : 'text-red-600'}`}>
+                {status.message}
+              </p>
+            )}
+
+            <button
+              type="submit"
+              disabled={isSending}
+              className="w-full bg-secondary hover:bg-secondary-700 text-white py-3 rounded-md font-semibold transition"
+            >
+              {isSending ? 'Enviando...' : 'Enviar'}
+            </button>
+          </form>
+        </div>
+
+        {/* ingresar foto */}
+        <div
+          className="h-[500px] rounded-2xl shadow-lg relative bg-cover bg-center"
+          style={{
+            backgroundImage: `url("/img/contacto/casa.jpg")`,
+            //ingresar fotitoo
+          }}
+        >
+          <div className="absolute inset-0 bg-black/40 rounded-2xl"></div>
+
+          <div className="absolute top-1/2 left-6 -translate-y-1/2 text-white max-w-xs">
+            <h2 className="text-2xl md:text-3xl font-bold mb-4">
+              Estamos encantados de resolver tus dudas.
+            </h2>
+            <p className="text-sm md:text-base text-gray-200">
+              Estamos aquí para ayudarte. Ya sea que tengas una consulta, sugerencia o quieras saber más
+              sobre nuestros servicios, no dudes en escribirnos.
+            </p>
           </div>
         </div>
+
       </section>
     </div>
   );
