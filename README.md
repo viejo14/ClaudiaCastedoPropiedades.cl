@@ -1,5 +1,5 @@
 
-# IG Propiedades - Web Inmobiliaria
+# Chamanne Propiedades - Web Inmobiliaria
 
 Proyecto web inmobiliario desarrollado con React y Vite. Permite publicar, visualizar y gestionar propiedades, contactar al equipo y mostrar información relevante de la empresa.
 
@@ -68,4 +68,4 @@ VITE_EMAILJS_ADMIN_TO_EMAIL=correo_admin
 
 ## Créditos y licencia
 
-Desarrollado por Francisco Campos de Bidata para IG Propiedades. Uso privado y educativo. No compartir datos sensibles ni credenciales.
+Desarrollado por Francisco Campos de Bidata para Chamanne Propiedades. Uso privado y educativo. No compartir datos sensibles ni credenciales.

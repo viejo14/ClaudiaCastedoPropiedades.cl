@@ -1,0 +1,23 @@
+/* Archivo temporal para probar colores en CSS */
+
+body {
+  background-color: #F7F1EA;
+}
+
+.temp-color-1 {
+  color: #ff5733;
+}
+
+.temp-color-2 {
+  color: #33c1ff;
+}
+
+.temp-bg-1 {
+  background-color: #ffe066;
+}
+
+.temp-bg-2 {
+  background-color: #6a89cc;
+}
+
+/* Agrega y modifica aquí los colores que quieras probar */

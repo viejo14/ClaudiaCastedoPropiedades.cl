@@ -14,7 +14,7 @@ function Header() {
   const getLinkClasses = (path) => {
     const base = "transition font-semibold";
     const active = "text-secondary";
-    const inactive = "text-gray-700 hover:text-gray-900";
+    const inactive = "text-gray-500 hover:text-gray-500";
     return `${base} ${isActive(path) ? active : inactive}`;
   };
 
@@ -25,9 +25,9 @@ function Header() {
         {/* Logo */}
         <div className="flex items-center gap-3">
           <img
-            src="/img/img-header/logo1.jpg"
-            alt="Logo IG Propiedades"
-            className="w-14 h-14 object-contain rounded-full"
+            src="/img/img-header/logo1.png"
+            alt="chamannepropiedades.cl"
+            className="w-14 h-14 object-contain rounded-full shadow-md shadow-black/50 bg-primary"
           />
         </div>
 
@@ -60,7 +60,7 @@ function Header() {
 
       {/* Menú móvil */}
       {open && (
-        <div className="absolute top-[90px] w-[90%] bg-white rounded-2xl shadow-lg py-4 px-6 flex flex-col gap-4 md:hidden">
+        <div className="absolute top-[90px] w-[90%] bg-white rounded-2xl shadow-lg py-6 px-6 flex flex-col gap-4 md:hidden mt-2">
           <Link to="/" onClick={() => setOpen(false)} className={getLinkClasses('/')}>Inicio</Link>
           <Link to="/propiedades" onClick={() => setOpen(false)} className={getLinkClasses('/propiedades')}>Propiedades</Link>
           <Link to="/nosotros" onClick={() => setOpen(false)} className={getLinkClasses('/nosotros')}>Nosotros</Link>

@@ -26,10 +26,10 @@ const services = [
 
 const Servicios = () => {
   return (
-    <main className="min-h-screen bg-white/90 pt-30 pb-40">
+    <main className="min-h-screen bg-primary pt-30 pb-40">
 
       <div className="text-center mb-16">
-        <h2 className="text-4xl font-bold text-gray-900">Nuestros servicios</h2>
+        <h2 className="font-script text-5xl font-normal text-gray-900">Nuestros servicios</h2>
         <p className="text-gray-600 mt-3">
           Contamos con importantes servicios para tu comodidad
         </p>
@@ -39,13 +39,13 @@ const Servicios = () => {
         {services.map((service, idx) => (
           <div
             key={idx}
-            className="bg-white/90 rounded-2xl shadow-sm border border-gray-200 text-center py-10 px-6 hover:shadow-md transition-all"
+            className="bg-tertiary rounded-full shadow-md border border-tertiary text-center py-10 px-6 hover:shadow-md transition-all"
           >
-            <div className="mx-auto w-full flex justify-center h-48 overflow-hidden mb-6">
+            <div className="mx-auto w-48 h-48 flex items-center justify-center overflow-hidden mb-6">
               <img
                 src={service.image}
                 alt={service.title}
-                className="h-full object-cover rounded-lg"
+                className="w-full h-full object-cover rounded-full"
               />
             </div>
 
@@ -59,7 +59,7 @@ const Servicios = () => {
 
             <Link
               to="/contacto"
-              className="border border-green-600 text-green-700 px-6 py-2 rounded-lg text-sm font-medium hover:bg-green-600 hover:text-white transition-colors"
+              className="border border-secondary text-secondary px-6 py-2 rounded-full text-sm font-medium hover:bg-primary hover:text-secondary transition-colors"
             >
               Saber más
             </Link>

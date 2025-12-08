@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
+import { useSearchParams } from 'react-router-dom';
 import { fetchProperties } from '../services/propertiesService';
 import PropertiesList from '../components/properties/PropertiesList';
 import Pagination from '../components/ui/Pagination';
@@ -8,6 +9,9 @@ function Properties() {
   const [filteredProperties, setFilteredProperties] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [searchParams] = useSearchParams();
+  const initializedFromQuery = useRef(false);
+  const [activeFilters, setActiveFilters] = useState({});
 
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
@@ -25,12 +29,36 @@ function Properties() {
     parkingSpaces: ''
   });
 
+  // Carga propiedades considerando filtros activos y el query param ?operacion=
   useEffect(() => {
     const loadProperties = async () => {
       try {
         setLoading(true);
         setError(null);
-        const response = await fetchProperties({}, currentPage, propertiesPerPage);
+
+        let baseFilters = { ...activeFilters };
+
+        const opParam = searchParams.get('operacion');
+        if (opParam) {
+          const normalized = opParam.toLowerCase();
+          const mapOperacion = {
+            compra: 'Compra',
+            venta: 'Venta',
+            arriendo: 'Arriendo',
+            'arriendo-temporal': 'Arriendo'
+          };
+          const mappedValue = mapOperacion[normalized];
+          if (mappedValue) {
+            baseFilters = { ...baseFilters, typeOfOperation: mappedValue };
+            if (!initializedFromQuery.current) {
+              initializedFromQuery.current = true;
+              setFilters((prev) => ({ ...prev, typeOfOperation: mappedValue }));
+              setActiveFilters((prev) => ({ ...prev, typeOfOperation: mappedValue }));
+            }
+          }
+        }
+
+        const response = await fetchProperties(baseFilters, currentPage, propertiesPerPage);
         setProperties(response.properties);
         setFilteredProperties(response.properties);
         setTotalPages(response.totalPages);
@@ -45,7 +73,7 @@ function Properties() {
 
     loadProperties();
     window.scrollTo({ top: 0, behavior: 'smooth' });
-  }, [currentPage, propertiesPerPage]);
+  }, [currentPage, propertiesPerPage, searchParams, activeFilters]);
 
   const handleFilterChange = (filterName, value) => {
     setFilters(prev => {
@@ -58,21 +86,8 @@ function Properties() {
   };
 
   const applyFilters = async () => {
-    try {
-      setLoading(true);
-      setError(null);
-      setCurrentPage(1);
-
-      const response = await fetchProperties(filters, 1, propertiesPerPage);
-      setFilteredProperties(response.properties);
-      setTotalPages(response.totalPages);
-      setTotalProperties(response.total);
-    } catch (err) {
-      console.error('Error al aplicar filtros:', err);
-      setError('Error al aplicar los filtros. Por favor, intenta nuevamente.');
-    } finally {
-      setLoading(false);
-    }
+    setActiveFilters(filters);
+    setCurrentPage(1);
   };
 
   const handlePageChange = newPage => {
@@ -101,22 +116,8 @@ function Properties() {
       parkingSpaces: ''
     });
 
-    try {
-      setLoading(true);
-      setError(null);
-      setCurrentPage(1);
-
-      const response = await fetchProperties({}, 1, propertiesPerPage);
-      setFilteredProperties(response.properties);
-      setProperties(response.properties);
-      setTotalPages(response.totalPages);
-      setTotalProperties(response.total);
-    } catch (err) {
-      console.error('Error al limpiar filtros:', err);
-      setError('Error al cargar las propiedades. Por favor, intenta nuevamente.');
-    } finally {
-      setLoading(false);
-    }
+    setActiveFilters({});
+    setCurrentPage(1);
   };
 
   const getUniqueOperations = () => {
@@ -162,11 +163,11 @@ function Properties() {
   };
 
   return (
-    <main className="min-h-screen bg-white/90 pt-30 pb-40">
+    <main className="min-h-screen bg-primary pt-30 pb-40">
       <div className="max-w-7xl mx-auto px-4">
 
         <div className="mt-10 mb-8">
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-900">
+          <h2 className="font-script text-5xl md:text-4xl font-normal text-gray-900">
             Descubre nuevas propiedades
           </h2>
           <p className="text-gray-500 mt-1">
@@ -174,43 +175,35 @@ function Properties() {
           </p>
         </div>
 
-        {/*cate*/}
-        <div className="flex gap-3 mb-10 justify-end">
-          <button className="px-5 py-2 rounded-full bg-primary text-white font-semibold">Casa</button>
-          <button className="px-5 py-2 rounded-full border font-semibold">Comercial</button>
-          <button className="px-5 py-2 rounded-full border font-semibold">Oficinas</button>
-          <button className="px-5 py-2 rounded-full border font-semibold">Departamentos</button>
-        </div>
-
         {/*para el filro+*/}
         <div className="grid grid-cols-2 md:grid-cols-6 gap-4 mb-6">
-          <select className="border rounded-md px-3 py-2" value={filters.typeOfOperation} onChange={(e) => handleFilterChange('typeOfOperation', e.target.value)}>
+          <select className="bg-tertiary border rounded-full px-3 py-2" value={filters.typeOfOperation} onChange={(e) => handleFilterChange('typeOfOperation', e.target.value)}>
             <option value="">Tipo de operación</option>
             {getUniqueOperations().map(op => (<option key={op} value={op}>{op}</option>))}
           </select>
 
-          <select className="border rounded-md px-3 py-2" value={filters.typeOfProperty} onChange={(e) => handleFilterChange('typeOfProperty', e.target.value)}>
+          <select className="bg-tertiary border rounded-full px-3 py-2" value={filters.typeOfProperty} onChange={(e) => handleFilterChange('typeOfProperty', e.target.value)}>
             <option value="">Tipo de inmueble</option>
             {getUniquePropertyTypes().map(type => (<option key={type} value={type}>{type}</option>))}
           </select>
 
-          <select className="border rounded-md px-3 py-2" value={filters.stateId} onChange={(e) => handleFilterChange('stateId', e.target.value)}>
+          <select className="bg-tertiary border rounded-full px-3 py-2" value={filters.stateId} onChange={(e) => handleFilterChange('stateId', e.target.value)}>
             <option value="">Región</option>
             {getUniqueRegions().map(region => (<option key={region.id} value={region.id}>{region.name}</option>))}
           </select>
 
-          <select className="border rounded-md px-3 py-2" value={filters.cityId} onChange={(e) => handleFilterChange('cityId', e.target.value)}>
+          <select className="bg-tertiary border rounded-full px-3 py-2" value={filters.cityId} onChange={(e) => handleFilterChange('cityId', e.target.value)}>
             <option value="">Comuna</option>
             {getUniqueCities().map(city => (<option key={city.id} value={city.id}>{city.name}</option>))}
           </select>
 
-          <select className="border rounded-md px-3 py-2" value={filters.bedrooms} onChange={(e) => handleFilterChange('bedrooms', e.target.value)}>
+          <select className="bg-tertiary border rounded-full px-3 py-2" value={filters.bedrooms} onChange={(e) => handleFilterChange('bedrooms', e.target.value)}>
             <option value="">Dormitorios</option>
             <option value="1">1</option><option value="2">2</option>
             <option value="3">3</option><option value="4">4</option>
           </select>
 
-          <select className="border rounded-md px-3 py-2" value={filters.bathrooms} onChange={(e) => handleFilterChange('bathrooms', e.target.value)}>
+          <select className="bg-tertiary border rounded-full px-3 py-2" value={filters.bathrooms} onChange={(e) => handleFilterChange('bathrooms', e.target.value)}>
             <option value="">Baños</option>
             <option value="1">1+</option><option value="2">2+</option>
             <option value="3">3+</option><option value="4">4+</option>
@@ -219,10 +212,10 @@ function Properties() {
 
         {/*bontes*/}
         <div className="flex justify-center gap-4 mb-12">
-          <button onClick={clearFilters} className="px-6 py-2 rounded-full bg-gray-200 font-semibold">
+          <button onClick={clearFilters} className="px-6 py-2 rounded-full bg-secondary text-primary font-semibold hover:bg-secondary/70 transition-colors">
             Limpiar
           </button>
-          <button onClick={applyFilters} className="px-6 py-2 rounded-full bg-primary text-white font-semibold hover:bg-primary/80 transition">
+          <button onClick={applyFilters} className="px-6 py-2 rounded-full bg-secondary text-primary font-semibold hover:bg-secondary/70 transition-colors">
             Buscar
           </button>
         </div>

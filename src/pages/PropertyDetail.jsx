@@ -71,7 +71,7 @@ function PropertyDetail() {
   if (error || !property) return <main className="min-h-screen pt-24 text-center">{error || 'Propiedad no encontrada'}</main>;
 
   return (
-    <main className="min-h-screen bg-white/90 pt-24">
+    <main className="min-h-screen bg-primary pt-24">
       <section className="max-w-7xl mx-auto px-4 py-10">
         <button onClick={() => navigate('/propiedades')} className="flex items-center gap-2 text-secondary mb-6 font-semibold">
           <FaArrowLeft /> Volver a propiedades
@@ -131,7 +131,7 @@ function PropertyDetail() {
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           <div className="lg:col-span-2 space-y-6">
-            <div className="bg-white p-6 rounded-xl shadow">
+            <div className="bg-tertiary p-6 rounded-xl shadow">
               <h2 className="text-xl font-bold mb-4">Características</h2>
               <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                 {property.characteristics?.bedrooms && (
@@ -146,7 +146,7 @@ function PropertyDetail() {
               </div>
             </div>
 
-            <div className="bg-white p-6 rounded-xl shadow">
+            <div className="bg-tertiary p-6 rounded-xl shadow">
               <h2 className="text-xl font-bold mb-4">Descripción</h2>
               <div className="text-gray-700 whitespace-pre-line" dangerouslySetInnerHTML={{ __html: property.propertyDescription }} />
             </div>
@@ -154,7 +154,7 @@ function PropertyDetail() {
 
           <aside className="bg-secondary/10 p-6 rounded-xl h-fit sticky top-24">
             <h2 className="text-xl font-bold mb-4">¿Te interesa esta propiedad?</h2>
-            <a href="/contacto" className="block bg-primary text-white text-center py-3 rounded-md font-semibold mb-3">Contactar</a>
+            <a href="/contacto" className="block bg-secondary text-primary text-center py-3 rounded-full font-semibold mb-3">Contactar</a>
           </aside>
         </div>
       </section>

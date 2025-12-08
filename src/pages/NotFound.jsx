@@ -4,7 +4,7 @@ import { FaHome, FaBuilding, FaExclamationTriangle } from 'react-icons/fa';
 
 function NotFound() {
   return (
-    <main className="min-h-screen bg-white/90 pt-24 pb-12 flex items-center justify-center relative overflow-hidden">
+    <main className="min-h-screen bg-primary pt-24 pb-12 flex items-center justify-center relative overflow-hidden">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
         {/* Icono de advertencia */}
         <div className="flex justify-center mb-8">

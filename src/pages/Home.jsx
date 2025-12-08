@@ -108,14 +108,12 @@ function Home() {
   }, [autoPlay]);
 
   return (
-    <div className="w-full overflow-hidden">
+    <div className="w-full overflow-hidden bg-primary text-secondary">
       <Hero />
-      {/* Secciones nuevas */}
-
-      <main className="min-h-screen bg-white/90">
-        {/*propiedades destacadas y carrusel*/}
+      <main className="min-h-screen">
+        {/* Propiedades destacadas y carrusel */}
         <section className="max-w-6xl mx-auto px-4 py-16">
-          <h2 className="text-4xl font-bold text-gray-900 mb-8">Propiedades destacadas</h2>
+          <h2 className="font-script text-5xl font-normal mb-8 text-secondary text-center">Propiedades destacadas</h2>
           {loading ? (
             <div className="text-center py-12 text-secondary">Cargando propiedades...</div>
           ) : error ? (
@@ -125,10 +123,10 @@ function Home() {
           ) : (
             <div className="flex flex-col items-center">
               <div className="flex gap-4 mb-4">
-                <button onClick={handlePrev} className="bg-secondary text-white px-4 py-2 rounded-lg font-semibold text-xs hover:bg-secondary/60 transition">&#8592; Anterior</button>
-                <button onClick={handleNext} className="bg-secondary text-white px-4 py-2 rounded-lg font-semibold text-xs hover:bg-secondary/60 transition">Siguiente &#8594;</button>
+                <button onClick={handlePrev} className="bg-secondary text-primary px-4 py-2 rounded-full font-semibold text-xs hover:bg-secondary/80 transition">&#8592; Anterior</button>
+                <button onClick={handleNext} className="bg-secondary text-primary px-4 py-2 rounded-full font-semibold text-xs hover:bg-secondary/80 transition">Siguiente &#8594;</button>
               </div>
-              <div className={`w-full max-w-6xl grid grid-cols-1 md:grid-cols-3 gap-8 transition-opacity duration-500 ${fade ? 'opacity-0' : 'opacity-100'}`}>
+              <div className={`w-full max-w-6xl grid grid-cols-1 md:grid-cols-3 gap-8 transition-opacity duration-500 ${fade ? 'opacity-0' : 'opacity-100'}`}> 
                 {currentGroup.map((prop) => (
                   <PropertyCard key={prop.id} property={prop} />
                 ))}
@@ -137,73 +135,79 @@ function Home() {
           )}
         </section>
 
-        {/* Servicios principales */}
+
+        {/* Servicios principales - rediseño visual */}
         <section className="max-w-6xl mx-auto px-4 py-16">
-          <h2 className="text-4xl font-bold text-gray-900 mb-8">Nuestros Servicios</h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <h2 className="font-script text-5xl font-normal mb-12 text-secondary text-center">Nuestros Servicios</h2>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
             {services.map((service, idx) => (
-              <div key={idx} className="bg-white rounded-2xl shadow-md p-8 flex flex-col items-center">
-                <div className="w-16 h-16 flex items-center justify-center rounded-full bg-[#edf1f3] text-black mb-4">
+              <div key={idx} className="bg-tertiary rounded-full shadow-lg p-10 flex flex-col items-center border border-secondary/10 relative overflow-hidden group min-h-[340px]">
+                <div className="w-24 h-24 flex items-center justify-center rounded-full bg-white text-secondary mb-4 border-2 border-secondary/10 shadow group-hover:scale-105 transition-transform duration-300">
                   {service.icon}
                 </div>
-                <h3 className="font-bold text-xl text-gray-900 mb-2">{service.title}</h3>
-                <p className="text-gray-600 text-center">{service.desc}</p>
+                {/* Imagen decorativa sutil */}
+                <img src="/img/img-carrusel-hero/servicio.png" alt="Decoración" className="absolute right-2 bottom-2 w-16 h-16 opacity-10 pointer-events-none select-none hidden md:block" />
+                <h3 className="font-bold text-2xl mb-2 text-secondary text-center">{service.title}</h3>
+                <p className="text-secondary/80 text-center text-lg">{service.desc}</p>
               </div>
             ))}
           </div>
         </section>
 
-        {/* Beneficios/Valores */}
+
+        {/* Beneficios/Valores - rediseño visual */}
         <section className="max-w-6xl mx-auto px-4 py-16">
-          <h2 className="text-4xl font-bold text-gray-900 mb-8">Nuestros Valores</h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <h2 className="font-script text-5xl font-normal mb-12 text-secondary text-center">Nuestros Valores</h2>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
             {values.map((value, idx) => (
-              <div key={idx} className="bg-white rounded-2xl shadow-md p-8 flex flex-col items-center">
-                <div className="mb-4">{value.icon}</div>
-                <h3 className="font-bold text-xl text-gray-900 mb-2">{value.title}</h3>
-                <p className="text-gray-600 text-center">{value.desc}</p>
+              <div key={idx} className="bg-tertiary rounded-full shadow-lg p-10 flex flex-col items-center border border-secondary/10 relative overflow-hidden group min-h-[340px]">
+                <div className="w-24 h-24 flex items-center justify-center rounded-full bg-white text-secondary mb-4 border-2 border-secondary/10 shadow group-hover:scale-105 transition-transform duration-300">
+                  {value.icon}
+                </div>
+                {/* Imagen decorativa sutil */}
+                <img src="/img/img-carrusel-hero/valor.png" alt="Decoración" className="absolute left-2 bottom-2 w-16 h-16 opacity-10 pointer-events-none select-none hidden md:block" />
+                <h3 className="font-bold text-2xl mb-2 text-secondary text-center">{value.title}</h3>
+                <p className="text-secondary/80 text-center text-lg">{value.desc}</p>
               </div>
             ))}
           </div>
         </section>
 
-        {/* Testimonios */}
+
+        {/* Testimonios - rediseño visual */}
         <section className="max-w-6xl mx-auto px-4 py-16">
-          <h2 className="text-4xl font-bold text-gray-900 mb-8">Lo que dicen nuestros clientes</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <h2 className="font-script text-5xl font-normal mb-12 text-secondary text-center">Lo que dicen nuestros clientes</h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
             {testimonials.map((t, idx) => (
-              <div key={idx} className="bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
+              <div key={idx} className="bg-tertiary p-10 rounded-full shadow-lg border border-secondary/10 flex flex-col items-center min-h-[260px] relative overflow-hidden group">
+                <img src="/img/img-carrusel-hero/testimonio.png" alt="Decoración" className="absolute right-2 top-2 w-16 h-16 opacity-10 pointer-events-none select-none hidden md:block" />
                 <div className="flex mb-4">
                   {[...Array(t.rating)].map((_, i) => (
                     <FaStar key={i} className="text-yellow-400" />
                   ))}
                 </div>
-                <p className="text-gray-600 italic mb-4">"{t.comment}"</p>
-                <p className="font-semibold text-gray-900">{t.name}</p>
+                <p className="italic mb-4 text-secondary/80 text-lg text-center">"{t.comment}"</p>
+                <p className="font-semibold text-secondary text-center">{t.name}</p>
               </div>
             ))}
           </div>
         </section>
 
-        {/* CTA destacado */}
-        <section className="from-secondary/90 via-gray-900 to-gray-800 bg-gradient-to-r text-white py-16">
-          <div className="max-w-4xl mx-auto px-4 text-center">
-            <h2 className="text-3xl font-bold mb-6">¿Listo para encontrar tu propiedad ideal?</h2>
-            <p className="text-gray-300 mb-8 max-w-2xl mx-auto">
+        {/* CTA destacado minimalista */}
+        <section className="w-full bg-primary text-secondary py-16 flex flex-col items-center justify-center p-4">
+            <h2 className="font-script text-5xl font-normal mb-6">¿Listo para encontrar tu propiedad ideal?</h2>
+            <p className="mb-8 max-w-2xl mx-auto text-secondary/80">
               Contáctanos hoy mismo y descubre cómo podemos ayudarte a hacer realidad tus proyectos inmobiliarios.
             </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Link to="/contacto" className="bg-white text-black px-6 py-3 rounded-lg font-medium hover:bg-gray-100 transition-colors">
+            <div className="flex flex-col sm:flex-row gap-4 justify-center w-full">
+              <Link to="/contacto" className="bg-secondary text-primary px-6 py-3 rounded-full font-medium hover:bg-secondary/80 transition-colors">
                 Solicitar asesoría
               </Link>
-              <Link to="/propiedades" className="border border-white text-white px-6 py-3 rounded-lg font-medium hover:bg-white/10 transition-colors">
+              <Link to="/propiedades" className="border bg-tertiary border-secondary text-secondary px-6 py-3 rounded-full font-medium hover:bg-secondary/10 transition-colors">
                 Ver propiedades
               </Link>
-            </div>
-          </div>
+            </div>  
         </section>
-
-        {/* Se eliminó la sección de partners/certificaciones */}
 
         {/* Contacto (no se modifica) */}
         <Contact />

@@ -98,7 +98,7 @@ function ImageLightbox({ isOpen, onClose, images, currentIndex, onNext, onPrev }
               className="absolute left-4 top-1/2 -translate-y-1/2 bg-primary/50 hover:bg-primary/20 p-4 rounded-full shadow-lg transition"
               aria-label="Imagen anterior"
             >
-              <FaChevronLeft className="text-primary text-2xl" />
+              <FaChevronLeft className="text-secondary text-2xl" />
             </button>
 
             <button
@@ -109,7 +109,7 @@ function ImageLightbox({ isOpen, onClose, images, currentIndex, onNext, onPrev }
               className="absolute right-4 top-1/2 -translate-y-1/2 bg-primary/50 hover:bg-primary/20 p-4 rounded-full shadow-lg transition"
               aria-label="Imagen siguiente"
             >
-              <FaChevronRight className="text-primary text-2xl" />
+              <FaChevronRight className="text-secondary text-2xl" />
             </button>
           </>
         )}

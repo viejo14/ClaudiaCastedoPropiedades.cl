@@ -2,7 +2,12 @@
 
 @theme {
 
-  --color-primary: #0ee8bc;
-  --color-secondary: #0299c7;
-  /*color-secondary: #2e092d;*/
+  --color-primary: #F7F1EA;
+  --color-secondary: #000000;
+  --color-tertiary: #ffffff80;
+}
+
+/* Script font for logo-like text */
+.font-script {
+  font-family: 'Great Vibes', cursive;
 }

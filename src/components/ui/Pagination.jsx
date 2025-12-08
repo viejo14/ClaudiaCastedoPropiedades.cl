@@ -68,7 +68,7 @@ const Pagination = ({
         <button
           onClick={onPreviousPage}
           disabled={currentPage === 1}
-          className={`flex items-center gap-2 px-4 py-2 rounded-md font-semibold transition ${
+          className={`flex items-center gap-2 px-4 py-2 rounded-full font-semibold transition ${
             currentPage === 1
               ? 'bg-secondary text-primary cursor-not-allowed'
               : 'bg-secondary text-primary hover:bg-secondary/40'
@@ -94,7 +94,7 @@ const Pagination = ({
               <button
                 key={page}
                 onClick={() => onPageChange(page)}
-                className={`min-w-[40px] px-3 py-2 rounded-md font-semibold transition ${
+                className={`min-w-[40px] px-3 py-2 rounded-full font-semibold transition ${
                   currentPage === page
                     ? 'bg-secondary text-primary'
                     : 'bg-p text-secondary hover:bg-primary/10 border border-gray-300'
@@ -112,7 +112,7 @@ const Pagination = ({
         <button
           onClick={onNextPage}
           disabled={currentPage === totalPages}
-          className={`flex items-center gap-2 px-4 py-2 rounded-md font-semibold transition ${
+          className={`flex items-center gap-2 px-4 py-2 rounded-full font-semibold transition ${
             currentPage === totalPages
               ? 'bg-secondary text-primary cursor-not-allowed'
               : 'bg-secondary text-primary hover:bg-secondary/40'
